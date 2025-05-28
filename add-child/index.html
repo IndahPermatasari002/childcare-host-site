@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Adding your child…</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      text-align: center;
+      padding: 16px;
+    }
+    p {
+      font-size: 1rem;
+      color: #555;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>Opening ChildCare…<br>
+      If nothing happens, <a id="store-link" href="#">click here</a>.
+    </p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const childCode = params.get('childCode');
+      if (!childCode) {
+        document.body.innerHTML = '<p>Invalid or missing code.</p>';
+        return;
+      }
+
+      const deepLink = `childcare://add-child?childCode=${childCode}`;
+      const androidStore = 'https://play.google.com/store/apps/details?id=com.yourcompany.childcare';
+      const iosStore     = 'https://apps.apple.com/app/your-app-id';
+
+      // Try app, then fallback
+      window.location.href = deepLink;
+      setTimeout(() => {
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        window.location.href = isIOS ? iosStore : androidStore;
+      }, 1500);
+
+      // Manual link
+      const storeLink = document.getElementById('store-link');
+      storeLink.href = (/iPhone|iPad|iPod/.test(navigator.userAgent))
+        ? iosStore
+        : androidStore;
+    });
+  </script>
+</body>
+</html>
