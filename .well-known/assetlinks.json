@@ -3,9 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.yourcompany.childcare",
+      "package_name": "com.indahpermatasari.childcare",
       "sha256_cert_fingerprints": [
-        "YOUR_APP_SHA256_FINGERPRINT_HERE"
+        "56:D5:85:47:27:EF:83:E3:93:09:DA:77:4A:E4:04:5C:01:4A:CA:90:34:57:E5:98:26:E3:A2:41:FD:09:6C:33"
       ]
     }
   }
