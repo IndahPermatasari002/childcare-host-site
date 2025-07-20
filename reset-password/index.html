@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Resetting your password…</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      text-align: center;
+      padding: 16px;
+    }
+    p {
+      font-size: 1rem;
+      color: #555;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>Opening ChildCare…<br>
+      If nothing happens, <a id="store-link" href="#">click here</a>.
+    </p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      if (!token) {
+        document.body.innerHTML = '<p>Invalid or missing token.</p>';
+        return;
+      }
+
+      const deepLink = `childcare://reset-password?token=${token}`;
+      const androidStore = 'https://play.google.com/store/apps/details?id=com.yourcompany.childcare';
+      const iosStore     = 'https://apps.apple.com/app/your-app-id';
+
+      window.location.href = deepLink;
+      setTimeout(() => {
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        window.location.href = isIOS ? iosStore : androidStore;
+      }, 1500);
+
+      const storeLink = document.getElementById('store-link');
+      storeLink.href = (/iPhone|iPad|iPod/.test(navigator.userAgent))
+        ? iosStore
+        : androidStore;
+    });
+  </script>
+</body>
+</html>
